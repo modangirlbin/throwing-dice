@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas의 기본</title>
+	<style>
+		button {border:0;vertical-align:middle;background-color:unset;cursor:pointer;}
+		.canvas_area{width:300px;height:300px;margin:100px;padding:50px 100px;box-sizing:border-box;background:beige;}
+		.button{display:block;padding:10px 8px;border-radius:3px;background:#777;color:#fff;}
+		.canvas{margin-top:50px;}
+	</style>
+</head>
+<body>
+	<div class="canvas_area">
+		<button class="button">주사위 던지기</button>
+		<canvas id="canvas" class="canvas" width="100" height="100"></canvas>
+	</div>
+	<script>
+
+		var button = document.getElementsByTagName('button');
+		var canvas = document.getElementById('canvas');
+
+		button[0].addEventListener('click', function(){
+			dice();
+		});
+
+		function dice(){
+
+			var num = Math.floor(Math.random()*10%6+1);
+
+			if(canvas.getContext){
+				var ctx = canvas.getContext('2d');
+
+				ctx.clearRect(0, 0, 100, 100);
+				canvas.style.backgroundColor = "#fff"; 
+				ctx.beginPath();
+
+				//주사위눈 좌표
+				var c = [
+					{x : 40, y :20},
+					{x : 70, y :20},
+					{x : 40, y :50},
+					{x : 70, y :50},
+					{x : 40, y :80},
+					{x : 70, y :80}
+				]
+
+				//주사위눈 그리기
+				for(var i = 0; i < num; i++){
+
+					var tempX = c[i].x;
+					var tempY =c[i].y;
+
+					ctx.moveTo(tempX, tempY);
+					ctx.arc(tempX - 5, tempY, 5, 0, Math.PI * 2, true);
+				}
+				ctx.fill();
+		  	}
+		}
+
+	</script>
+</body>
+</html>
